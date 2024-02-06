@@ -1,5 +1,7 @@
 import React from 'react'
 import { Box, Button, styled } from "@mui/material";
+import ResultPage from '../ResultPage';
+import { saveAs } from 'file-saver';
 const students= [
       {
         "id": 1,
@@ -11,7 +13,7 @@ const students= [
         "state": "kaduna"
       },
       {
-        "id": 1,
+        "id": 2,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -20,7 +22,7 @@ const students= [
         "state": "kaduna"
       },
       {
-        "id": 1,
+        "id": 3,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -29,7 +31,7 @@ const students= [
         "state": "kaduna"
       },
       {
-        "id": 1,
+        "id": 4,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -37,7 +39,7 @@ const students= [
         "levitem": "100 Levitem",
         "state": "kaduna"
       },{
-        "id": 1,
+        "id": 5,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -46,7 +48,7 @@ const students= [
         "state": "kaduna"
       },
       {
-        "id": 1,
+        "id": 6,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -54,7 +56,7 @@ const students= [
         "levitem": "100 Levitem",
         "state": "kaduna"
       },{
-        "id": 1,
+        "id": 7,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -62,7 +64,7 @@ const students= [
         "levitem": "100 Levitem",
         "state": "kaduna"
       },{
-        "id": 1,
+        "id": 8,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -70,7 +72,7 @@ const students= [
         "levitem": "100 Levitem",
         "state": "kaduna"
       },{
-        "id": 1,
+        "id": 9,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -78,7 +80,7 @@ const students= [
         "levitem": "100 Levitem",
         "state": "kaduna"
       },{
-        "id": 1,
+        "id": 10,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -86,7 +88,7 @@ const students= [
         "levitem": "100 Levitem",
         "state": "kaduna"
       },{
-        "id": 1,
+        "id": 11,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -94,7 +96,7 @@ const students= [
         "levitem": "100 Levitem",
         "state": "kaduna"
       },{
-        "id": 1,
+        "id": 12,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -102,7 +104,7 @@ const students= [
         "levitem": "100 Levitem",
         "state": "kaduna"
       },{
-        "id": 1,
+        "id": 13,
         "surname": "bob",
         "firstname": "Peter",
         "age": 25,
@@ -123,6 +125,31 @@ const columnHeads= [
 ];
 
 const StudentsTable = () => {
+
+   const handleDownload = (result) => {
+if  (result){
+  const resultHtml =ResultPage({ result });
+
+   const htmlData = `
+   <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Result Details</title>
+      </head>
+      <body>
+       ${resultHtml}
+      </body>
+      </html>
+    `;
+   const blob = new Blob([htmlData], { type: 'text/html' });
+
+    // Use file-saver to save the blob as a file
+    saveAs(blob, `${result.firstname}_result.html`);
+}
+  
+  };
 
 
 
@@ -145,7 +172,7 @@ const StudentsTable = () => {
         </TableHead>
         <TableBody >
           {students.map((item, i) => (
-            <tr>
+            <tr key={item?.id}>
 
                 <Tabledata >
            
@@ -172,7 +199,8 @@ const StudentsTable = () => {
                 {item.state}
               </Tabledata>
                 <Tabledata>
-               <DWLButton>Download Result</DWLButton>
+                  <Button style={{background:"#46C35F",  textTransform: "capitalize"}} onClick={()=>handleDownload(item)} variant="contained">Download Result</Button>
+             
               </Tabledata>
             </tr>
           ))}
@@ -186,10 +214,6 @@ const StudentsTable = () => {
 export default StudentsTable
 
 
-const Cont = styled(Box)(({ theme }) => ({
-  //  display:"flex",
-
-}));
 
 const MainTableContainer = styled(Box)(({ theme }) => ({
   width:"90%",
@@ -201,10 +225,12 @@ overflowY: 'scroll',
   WebkitOverflowScrolling: 'touch',
   '&::-webkit-scrollbar': {
     width: '10px',
+   
   },
 
   '&::-webkit-scrollbar-thumb': {
     backgroundColor: '#46C35F',
+     borderRadius:"5px"
   },
 
   '&::-webkit-scrollbar-track': {
@@ -236,7 +262,7 @@ const TableHead = styled("thead")(({ theme }) => ({
 const TableH = styled("th")(({ theme }) => ({
     color: '#343434',
     whiteSpace: 'nowrap', 
-    padding:"8px 16px",
+    padding:"16px",
     textAlign: 'center', 
     lineHeight:"16.8px",
     fontSize: '14px', 
@@ -251,22 +277,11 @@ const TableH = styled("th")(({ theme }) => ({
 const Tabledata = styled("td")(({ theme }) => ({
     whiteSpace: 'nowrap',
     alignItems:"center",
-    padding: '16px', // Tailwind: p-4
-    paddingLeft: '24px', // Tailwind: px-6
+    padding: '16px', 
+    paddingLeft: '24px',
 textAlign:"center",
-    fontSize: '14px', // Tailwind: text-sm
+    fontSize: '14px', 
      textTransform: "capitalize"
 
 
-}));
-
-const DWLButton = styled("button")(({ theme }) => ({
-background:"#46C35F",
-color:"#FFFFFF",
-border:"none",
-cursor:"pointer",
-fontSize:"12px",
-fontWeight:500,
-lineHeight:"14.4px",
-padding:"10px 12px"
 }));

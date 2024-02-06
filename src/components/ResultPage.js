@@ -1,18 +1,17 @@
 import React from 'react';
-import { saveAs } from 'file-saver';
+
 import { IC_logo, IC_passport } from '../assets/images';
 import { Box, Typography, styled } from '@mui/material';
 import ResultTableOne from './tables/ResultTableOne';
-const ResultPage = ({ results }) => {
+import ResultTableTwo from './tables/ResultsTableTwo';
+import { renderToString } from 'react-dom/server';
+const ResultPage = ({ result }) => {
   
-    const downloadResults = () => {
-    const blob = new Blob([document.getElementById('result-page').outerHTML], {
-      type: 'text/html',
-    });
-    saveAs(blob, 'student_results.html');
-  };
-  return (
-    <div style={{background:"#F2F2F2", width:"100%", alignItems:"center", display:"flex", justifyContent:"center"}}>
+  
+
+    const jsxContent = (
+
+ <div style={{background:"#F2F2F2", width:"100%", alignItems:"center", display:"flex", justifyContent:"center"}}>
   <MainContainer>
        <HeaderContainer>
 
@@ -44,9 +43,9 @@ const ResultPage = ({ results }) => {
 >
 
       <DetailsItemContainer>
-<DetailsItem>Name: <span>Chuckma James Nnamdi</span></DetailsItem>
+<DetailsItem>Name: <span>{result?.surname +" "+ result?.firstname  }</span></DetailsItem>
 
-      <DetailsItem>Level: <span>100 Level</span></DetailsItem>
+      <DetailsItem>Level: <span>{result?.levitem.split(" ")[0]}Level</span></DetailsItem>
     </DetailsItemContainer>
     <DetailsItemContainer>
 
@@ -59,40 +58,22 @@ const ResultPage = ({ results }) => {
 
 <ResultTableTwo/>
 
+<Remarks>Remarks: <span>Pass</span> </Remarks>
+
+<Registrar>
+  Registrar
+</Registrar>
+
     </MainContainer>
 
     </div>
-  
- 
-    
-    // <div>
-    //  <h1>Student Results</h1>
-    //   <button onClick={downloadResults}>Download Results</button>
-    // <div id="result-page">
-    // <table>
-    //     <thead>
-    //       <tr>
-    //         <th>Student Name</th>
-    //         <th>Subject</th>
-    //         <th>Score</th>
-    //       </tr>
-    //     </thead>
-    //     <tbody>
-    //       {results.map((result, index) => (
-    //         <tr key={index}>
-    //           <td>{result.studentName}</td>
-    //           <td>{result.subject}</td>
-    //           <td>{result.score}</td>
-    //         </tr>
-    //       ))}
-    //     </tbody>
-    //   </table><div/>
-
-    // </div>
-     
+    )
    
-    // </div>
-  );
+
+    const stringData = renderToString(jsxContent);
+
+  return stringData;
+  
 };
 
 export default ResultPage;
@@ -156,11 +137,35 @@ const  DetailsItem= styled(Typography)(({ theme }) => ({
     },
 }));
 
+const  Remarks= styled(Typography)(({ theme }) => ({
+   color:"#000000",
+ fontWeight:500,
+ fontSize:"12px",
+ lineHeight:"14.4px",
+ marginBottom:"120px",
+    '& span': {
+   fontWeight:500,
+   color:"#0D7590"
+
+
+    },
+}));
+
 const  HeaderText1= styled(Typography)(({ theme }) => ({
  color:"#4F4F4F",
  fontWeight:700,
  fontSize:"16px",
  lineHeight:"19.2px"
+}));
+
+const  Registrar= styled(Typography)(({ theme }) => ({
+ color:"#333333",
+ fontWeight:400,
+ fontSize:"12px",
+ lineHeight:"14.4px",
+ borderTop:"1px solid #000000",
+ padding:"15px",
+ width:"20%"
 }));
 const  HeaderText2= styled(Typography)(({ theme }) => ({
  color:"#4F4F4F",

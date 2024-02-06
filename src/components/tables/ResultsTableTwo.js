@@ -78,7 +78,8 @@ export default ResultTableTwo
 
 
 const MainTableContainer = styled(Box)(({ theme }) => ({
-marginBottom:"50px"
+marginBottom:"50px",
+width:"70%"
 }));
 
 const TableBody = styled("tbody")(({ theme }) => ({
@@ -131,11 +132,9 @@ const Tabledata = styled("td")(({ theme }) => ({
     whiteSpace: 'nowrap',
     alignItems:"center",
    
-    //   borderCollapse: "collapse",
-    padding: '16px', // Tailwind: p-4
-    paddingLeft: '24px', // Tailwind: px-6
+ padding: '14px', 
 textAlign:"center",
-    fontSize: '14px', // Tailwind: text-sm
+    fontSize: '14px',
      textTransform: "capitalize"
 
 

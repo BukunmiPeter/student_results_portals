@@ -101,22 +101,14 @@ const HomePage = () => {
         </TextFieldWrapper>
 
             </Grid>
-            <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
+            <Grid style={{ gridColumn: 'span 2' }} item xl={4} lg={4} md={12} sm={12} xs={12}>
  <Button style={{background:"#46C35F", width:"100%", textTransform: "capitalize"}} variant="contained">Search</Button>
         </Grid>
 
 
             </Grid>
         </FilterMainContainer> 
-      
-      
-
- 
-     
-       
-
    <StudentsTable/>
-
     </PageWrapper>
   )
 }
@@ -140,9 +132,6 @@ const  FilterMainContainer= styled(Box)(({ theme }) => ({
 
 
 const  PageWrapper= styled(Box)(({ theme }) => ({
-//     width:"100%",
-//  padding:"20px 40px",
-// border:"1px solid red",
   height:"100vh",
  display:"flex",
  justifyContent:"center",
@@ -150,7 +139,7 @@ const  PageWrapper= styled(Box)(({ theme }) => ({
  flexDirection:"column"
 }));
 
-const  Text2= styled("p")(({ theme }) => ({
+const Text2= styled("p")(({ theme }) => ({
 color:"#616161",
 fontSize:"24px",
 marginLeft:"35px"
