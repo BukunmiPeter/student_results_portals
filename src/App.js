@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import ResultPage from './components/ResultPage';
+import HomePage from './pages/HomePage';
 
-function App() {
+
+const App = () => {
+
+
+  const studentResults = {
+      "id": 1,
+        "surname": "bob",
+        "firstname": "Peter",
+        "age": 25,
+        "gender": "male",
+        "levitem": "100 Levitem",
+        "state": "kaduna"
+  }
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {/* <HomePage/> */}
+       <ResultPage results={studentResults} />
     </div>
   );
-}
+};
 
 export default App;
