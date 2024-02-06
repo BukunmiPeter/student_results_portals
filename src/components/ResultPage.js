@@ -2,6 +2,7 @@ import React from 'react';
 import { saveAs } from 'file-saver';
 import { IC_logo, IC_passport } from '../assets/images';
 import { Box, Typography, styled } from '@mui/material';
+import ResultTableOne from './tables/ResultTableOne';
 const ResultPage = ({ results }) => {
   
     const downloadResults = () => {
@@ -53,6 +54,10 @@ const ResultPage = ({ results }) => {
       <DetailsItem>Session: <span>2022/2023 Session</span></DetailsItem>
     </DetailsItemContainer>
 </DetailsContainer>
+
+<ResultTableOne/>
+
+<ResultTableTwo/>
 
     </MainContainer>
 

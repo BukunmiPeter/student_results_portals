@@ -3,58 +3,27 @@ import { Box, Button, styled } from "@mui/material";
 
 
 
-const courses = [
+const gpatd = [
   {
-        "id": 1,
-        "course_code": "PDE 701",
-        "course_title": "History of Education",
-        "unit": 2,
-        "grade": "A",
-        "total_point": 8
+        "unts":"028",
+        "untd": "028",
+        "gpts": "067",
+        "gptd": "067",
+        "gpats": "2.71",
+        "gpatd": "2.71"
       },
-        {
-        "id": 1,
-        "course_code": "PDE 702",
-        "course_title": "Developmental Psychology",
-        "unit": 2,
-        "grade": "B",
-        "total_point": 9
-      },
-        {
-        "id": 1,
-        "course_code": "PDE 703",
-        "course_title": "Measurement and Evaluation",
-        "unit": 2,
-        "grade": "A",
-        "total_point": 8
-      },
-        {
-        "id": 1,
-        "course_code": "PDE 704",
-        "course_title": "Educational Psychology",
-        "unit": 2,
-        "grade": "A",
-        "total_point":9
-      },
-        {
-        "id": 1,
-        "course_code": "PDE 705",
-        "course_title": "Philosophy of Education",
-        "unit": 2,
-        "grade": "B",
-        "total_point": 8
-      },
+       
 ]
 
 const columnHeads= [
-  "S/N",
-  "Course Code",
-  "Course Title",
-  "Unit",
-  "Grade",
-  "Total Point"
+  "UNTS",
+  "UNTD",
+  "GPTS",
+  "GPTD",
+  "GPATS",
+  "GPATD"
 ];
-const ResultTableOne = () => {
+const ResultTableTwo = () => {
   return (
      <MainTableContainer>
 
@@ -73,29 +42,29 @@ const ResultTableOne = () => {
           </tr>
         </TableHead>
         <TableBody >
-          {courses.map((item, i) => (
+          {gpatd.map((item, i) => (
             <tr>
 
                 <Tabledata >
            
-                {item.id}
+                {item.unts}
               </Tabledata>
               <Tabledata >
              
-                {item.course_code}
+                {item.untd}
               </Tabledata>
 
               <Tabledata >
-                {item.course_title}
+                {item.gpts}
               </Tabledata>
               <Tabledata>
-                {item.unit}
+                {item.gptd}
               </Tabledata>
               <Tabledata >
-                {item.grade}
+                {item.gpats}
               </Tabledata>
                 <Tabledata >
-                {item.total_point}
+                {item.gpatd}
               </Tabledata>
             </tr>
           ))}
@@ -105,7 +74,7 @@ const ResultTableOne = () => {
   )
 }
 
-export default ResultTableOne
+export default ResultTableTwo
 
 
 const MainTableContainer = styled(Box)(({ theme }) => ({
