@@ -4,15 +4,12 @@ import { IC_logo, IC_passport } from '../assets/images';
 import { Box, Typography, styled } from '@mui/material';
 import ResultTableOne from './tables/ResultTableOne';
 import ResultTableTwo from './tables/ResultsTableTwo';
-import { renderToString } from 'react-dom/server';
 const ResultPage = ({ result }) => {
+
   
   
-
-    const jsxContent = (
-
- <div style={{background:"#F2F2F2", width:"100%", alignItems:"center", display:"flex", justifyContent:"center"}}>
-  <MainContainer>
+  return (
+  <div style={{width:"100%" , padding:"20px" ,background:"#ffffff"}} id="result-page" >
        <HeaderContainer>
 
   
@@ -45,7 +42,7 @@ const ResultPage = ({ result }) => {
       <DetailsItemContainer>
 <DetailsItem>Name: <span>{result?.surname +" "+ result?.firstname  }</span></DetailsItem>
 
-      <DetailsItem>Level: <span>{result?.levitem.split(" ")[0]}Level</span></DetailsItem>
+      <DetailsItem>Level: <span>{result?.level}</span></DetailsItem>
     </DetailsItemContainer>
     <DetailsItemContainer>
 
@@ -64,16 +61,10 @@ const ResultPage = ({ result }) => {
   Registrar
 </Registrar>
 
-    </MainContainer>
-
     </div>
-    )
-   
 
-    const stringData = renderToString(jsxContent);
-
-  return stringData;
-  
+    // </div>
+  );
 };
 
 export default ResultPage;
@@ -98,12 +89,6 @@ const  HeaderTextsContainer= styled(Box)(({ theme }) => ({
 
 }));
 
-const  MainContainer= styled(Box)(({ theme }) => ({
-width:"50%",
-padding:"20px",
-  background:"#ffffff",
-
-}));
 
 
 const  DetailsContainer= styled(Typography)(({ theme }) => ({
@@ -132,6 +117,7 @@ const  DetailsItem= styled(Typography)(({ theme }) => ({
  lineHeight:"14.4px",
     '& span': {
    fontWeight:500,
+    textTransform: "capitalize"
 
 
     },

@@ -109,7 +109,8 @@ export default ResultTableOne
 
 
 const MainTableContainer = styled(Box)(({ theme }) => ({
-marginBottom:"50px"
+marginBottom:"50px",
+width:"100%"
 }));
 
 const TableBody = styled("tbody")(({ theme }) => ({

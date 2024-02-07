@@ -1,33 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import StudentsTable from '../components/tables/StudentsTable'
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Button,Grid,styled } from '@mui/material';
+import { getAllAges, getAllGender, getAllLevels, getAllStates } from '../util/apis';
 
+
+const fetchData = async (apiFunction, setterFunction) => {
+  try {
+    const response = await apiFunction();
+    setterFunction(response.data.data);
+  } catch (error) {
+    console.log("error", error);
+  }
+};
 const HomePage = () => {
+    const [ages, setAges] = useState([])
+     const [states, setStates] = useState([])
+      const [levels, setLevels] = useState([])
+       const [gender, setGender] = useState([])
 
-    const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
+  useEffect(() => {
+    fetchData(getAllAges, setAges);
+    fetchData(getAllGender, setGender);
+    fetchData(getAllStates, setStates);
+    fetchData(getAllLevels, setLevels);
+  }, []);
   return (
-
-
-
     <PageWrapper>
         <div style={{width:"100%"}}><h1>Student Data Table</h1>
         </div>
@@ -44,9 +43,9 @@ const HomePage = () => {
           label="Age"
          placeholder='select Age'
         >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {ages?.map((option) => (
+            <MenuItem key={option.id} value={option.age}>
+              {option.age}
             </MenuItem>
           ))}
         </TextFieldWrapper>
@@ -60,9 +59,9 @@ const HomePage = () => {
     
      
         >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {states?.map((option) => (
+            <MenuItem key={option.id} value={option.name}>
+              {option.name}
             </MenuItem>
           ))}
         </TextFieldWrapper>
@@ -77,9 +76,9 @@ const HomePage = () => {
           label="Level"
    
         >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {levels.map((option) => (
+            <MenuItem key={option.id} value={option.level}>
+              {option.level}
             </MenuItem>
           ))}
         </TextFieldWrapper>
@@ -93,9 +92,9 @@ const HomePage = () => {
           label="Gender"
        
         >
-          {currencies.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
+          {gender?.map((option) => (
+            <MenuItem key={option.id} value={option.gender}>
+              {option.gender}
             </MenuItem>
           ))}
         </TextFieldWrapper>

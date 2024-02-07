@@ -1,118 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, styled } from "@mui/material";
 import ResultPage from '../ResultPage';
-import { saveAs } from 'file-saver';
-const students= [
-      {
-        "id": 1,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },
-      {
-        "id": 2,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },
-      {
-        "id": 3,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },
-      {
-        "id": 4,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },{
-        "id": 5,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },
-      {
-        "id": 6,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },{
-        "id": 7,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },{
-        "id": 8,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },{
-        "id": 9,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },{
-        "id": 10,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },{
-        "id": 11,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },{
-        "id": 12,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      },{
-        "id": 13,
-        "surname": "bob",
-        "firstname": "Peter",
-        "age": 25,
-        "gender": "male",
-        "levitem": "100 Levitem",
-        "state": "kaduna"
-      }
-    ]
+import html2pdf from 'html2pdf.js';
+import { getAllData } from '../../util/apis';
+import CircularIndeterminate from '../Loader';
+
 const columnHeads= [
   "S/N",
   "Surname",
@@ -125,40 +17,61 @@ const columnHeads= [
 ];
 
 const StudentsTable = () => {
+  const [resultToDownload, setResultToDownload] = useState(null)
+    const [isVisible, setIsVisible] = useState(false);
+    const [students,setStudents] = useState([])
+    const [error, setError]= useState("")
+    const [loading,setLoading]= useState(false)
 
-   const handleDownload = (result) => {
-if  (result){
-  const resultHtml =ResultPage({ result });
+     useEffect(() => {
 
-   const htmlData = `
-   <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Result Details</title>
-      </head>
-      <body>
-       ${resultHtml}
-      </body>
-      </html>
-    `;
-   const blob = new Blob([htmlData], { type: 'text/html' });
+    const fetchData = async () => {
+      try {
+        setLoading(true)
+        const response = await getAllData()
+        setStudents(response.data.data.students);
+      } catch (error) {
+        setError('Error fetching data');
+      } 
+      setLoading(false)
+    };
 
-    // Use file-saver to save the blob as a file
-    saveAs(blob, `${result.firstname}_result.html`);
-}
-  
+    fetchData();
+  }, []);
+
+
+const handleDownload = (result) => {
+    const resultPageElement = document.getElementById('result-page');
+console.log(resultPageElement, "fhfhfh")
+setResultToDownload(result)
+    if (resultPageElement) {
+      const pdfOptions = {
+        // margin: 10,
+        filename: `${result.firstname}.pdf`,
+        // image: { type: 'jpeg', quality: 0.98 },
+        // html2canvas: { scale: 2 },
+        // jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+         image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 2, width: resultPageElement.offsetWidth * 2, height: resultPageElement.offsetHeight * 2 },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      };
+
+    html2pdf().from(resultPageElement).set(pdfOptions).save();
+    }
   };
 
 
-
   return (
-      <MainTableContainer>
-
+<>
+ {
+      loading? <CircularIndeterminate/> : 
+      
+          <MainTableContainer>
+           <ResultPage result={resultToDownload}/>
+        {/* </div> */}
    <TableContainer >
         <TableHead >
-          <tr style={{}}>
+          <tr>
             {columnHeads.map((item, i) => (
               <TableH
                 key={i}
@@ -171,7 +84,7 @@ if  (result){
           </tr>
         </TableHead>
         <TableBody >
-          {students.map((item, i) => (
+          {students?.map((item, i) => (
             <tr key={item?.id}>
 
                 <Tabledata >
@@ -193,7 +106,7 @@ if  (result){
                 {item.gender}
               </Tabledata>
                 <Tabledata >
-                {item.levitem.split(" ")[0]} level
+                {item?.level}
               </Tabledata>
                 <Tabledata >
                 {item.state}
@@ -207,6 +120,13 @@ if  (result){
         </TableBody>
       </TableContainer>
       </MainTableContainer>
+       
+        
+      
+    }
+</>
+   
+     
     
   )
 }
