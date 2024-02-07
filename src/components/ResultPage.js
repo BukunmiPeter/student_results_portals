@@ -6,6 +6,8 @@ import ResultTableOne from './tables/ResultTableOne';
 import ResultTableTwo from './tables/ResultsTableTwo';
 const ResultPage = ({ result }) => {
 
+
+
   
   
   return (

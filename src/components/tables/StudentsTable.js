@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, styled } from "@mui/material";
+import { Box, Button, Modal, styled } from "@mui/material";
 import ResultPage from '../ResultPage';
 import html2pdf from 'html2pdf.js';
 import { getAllData } from '../../util/apis';
 import CircularIndeterminate from '../Loader';
+import ResultModal from '../ResultModal';
 
 const columnHeads= [
   "S/N",
@@ -22,6 +23,18 @@ const StudentsTable = ({searchedData}) => {
     const [students,setStudents] = useState([])
     const [error, setError]= useState("")
     const [loading,setLoading]= useState(false)
+    const [openModal, setOpenModal] = useState(false)
+
+
+    const handleDownload =(result)=>{
+      setResultToDownload(result)
+        setOpenModal(true)
+    
+    }
+
+    const HandleCloseModal =()=>{
+      setOpenModal(false)
+    }
 
  useEffect(() => {
     if (searchedData && searchedData.length > 0) {
@@ -43,24 +56,7 @@ const StudentsTable = ({searchedData}) => {
   }, [searchedData]);
 
 
-const handleDownload = (result) => {
-    const resultPageElement = document.getElementById('result-page');
-console.log(resultPageElement, "fhfhfh")
-setResultToDownload(result)
-    if (resultPageElement) {
-      const pdfOptions = {
-        // margin: 10,
-        filename: `${result.firstname}.pdf`,
-        // image: { type: 'jpeg', quality: 0.98 },
-        // html2canvas: { scale: 2 },
-        // jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-         image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, width: resultPageElement.offsetWidth * 1.3, height: resultPageElement.offsetHeight * 3.2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      };
-    html2pdf().from(resultPageElement).set(pdfOptions).save();
-    }
-  };
+
 
 
   return (
@@ -69,8 +65,8 @@ setResultToDownload(result)
       
       
           <MainTableContainer>
-           <ResultPage result={resultToDownload}/>
-        {/* </div> */}
+         {isVisible &&  <ResultPage result={resultToDownload}/>}
+        
    <TableContainer >
         <TableHead >
           <tr>
@@ -119,6 +115,9 @@ setResultToDownload(result)
           ))}
         </TableBody>
       </TableContainer>
+
+<ResultModal useResult={resultToDownload} open={openModal} close={HandleCloseModal}/>
+      
       </MainTableContainer>
        
         
@@ -164,6 +163,7 @@ const TableBody = styled("tbody")(({ theme }) => ({
 
 
 }));
+
 
 const TableContainer = styled("table")(({ theme }) => ({
   //  display:"flex",
