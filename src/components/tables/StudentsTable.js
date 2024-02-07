@@ -61,10 +61,8 @@ const StudentsTable = ({searchedData}) => {
 
   return (
 <>
- 
-      
-      
-          <MainTableContainer>
+ {
+  loading? <CircularIndeterminate/> :     <MainTableContainer>
          {isVisible &&  <ResultPage result={resultToDownload}/>}
         
    <TableContainer >
@@ -82,7 +80,7 @@ const StudentsTable = ({searchedData}) => {
           </tr>
         </TableHead>
         <TableBody >
-          { loading? <CircularIndeterminate/> :  students?.map((item, i) => (
+          {  students?.map((item, i) => (
             <tr key={item?.id}>
                 <Tabledata >
                 {item.id}
@@ -119,6 +117,10 @@ const StudentsTable = ({searchedData}) => {
 <ResultModal useResult={resultToDownload} open={openModal} close={HandleCloseModal}/>
       
       </MainTableContainer>
+ }
+      
+      
+      
        
         
       

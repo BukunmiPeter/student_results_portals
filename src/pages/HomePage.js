@@ -59,7 +59,7 @@ console.log(error)
 
   return (
     <PageWrapper>
-        <div style={{width:"100%"}}><h1>Student Data Table</h1>
+        <div style={{ width:"100%"}}><h1 style={{marginLeft:"40px" }}>Student Data Table</h1>
         </div>
         
 
