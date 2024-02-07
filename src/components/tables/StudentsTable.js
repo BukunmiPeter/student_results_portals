@@ -16,28 +16,31 @@ const columnHeads= [
   "Action"
 ];
 
-const StudentsTable = () => {
+const StudentsTable = ({searchedData}) => {
   const [resultToDownload, setResultToDownload] = useState(null)
     const [isVisible, setIsVisible] = useState(false);
     const [students,setStudents] = useState([])
     const [error, setError]= useState("")
     const [loading,setLoading]= useState(false)
 
-     useEffect(() => {
+ useEffect(() => {
+    if (searchedData && searchedData.length > 0) {
+      setStudents(searchedData);
+    } else {
+      const fetchData = async () => {
+        try {
+          setLoading(true);
+          const response = await getAllData();
+          setStudents(response.data.data.students);
+        } catch (error) {
+          setError('Error fetching data');
+        }
+        setLoading(false);
+      };
 
-    const fetchData = async () => {
-      try {
-        setLoading(true)
-        const response = await getAllData()
-        setStudents(response.data.data.students);
-      } catch (error) {
-        setError('Error fetching data');
-      } 
-      setLoading(false)
-    };
-
-    fetchData();
-  }, []);
+      fetchData();
+    }
+  }, [searchedData]);
 
 
 const handleDownload = (result) => {
@@ -51,11 +54,10 @@ setResultToDownload(result)
         // image: { type: 'jpeg', quality: 0.98 },
         // html2canvas: { scale: 2 },
         // jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-         image: { type: 'jpeg', quality: 1 },
-      html2canvas: { scale: 2, width: resultPageElement.offsetWidth * 2, height: resultPageElement.offsetHeight * 2 },
+         image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, width: resultPageElement.offsetWidth * 1.3, height: resultPageElement.offsetHeight * 3.2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       };
-
     html2pdf().from(resultPageElement).set(pdfOptions).save();
     }
   };
@@ -63,8 +65,8 @@ setResultToDownload(result)
 
   return (
 <>
- {
-      loading? <CircularIndeterminate/> : 
+ 
+      
       
           <MainTableContainer>
            <ResultPage result={resultToDownload}/>
@@ -84,11 +86,9 @@ setResultToDownload(result)
           </tr>
         </TableHead>
         <TableBody >
-          {students?.map((item, i) => (
+          { loading? <CircularIndeterminate/> :  students?.map((item, i) => (
             <tr key={item?.id}>
-
                 <Tabledata >
-           
                 {item.id}
               </Tabledata>
               <Tabledata >
@@ -123,7 +123,7 @@ setResultToDownload(result)
        
         
       
-    }
+    
 </>
    
      

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import StudentsTable from '../components/tables/StudentsTable'
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
-import { Box, Button,Grid,styled } from '@mui/material';
-import { getAllAges, getAllGender, getAllLevels, getAllStates } from '../util/apis';
+import { Box, Button,CircularProgress,Grid,styled } from '@mui/material';
+import { gerFilterdata, getAllAges, getAllGender, getAllLevels, getAllStates } from '../util/apis';
 
 
 const fetchData = async (apiFunction, setterFunction) => {
@@ -19,6 +19,34 @@ const HomePage = () => {
      const [states, setStates] = useState([])
       const [levels, setLevels] = useState([])
        const [gender, setGender] = useState([])
+       const [selectedAge, setSelectedAge] = useState('');
+  const [selectedState, setSelectedState] = useState('');
+  const [selectedLevel, setSelectedLevel] = useState('');
+  const [selectedGender, setSelectedGender] = useState('');
+  const [searchedData, setSearchedData] = useState([])
+const [loading, setLoading]=useState(false)
+
+
+
+       const filterData = {
+    age: selectedAge,
+    state: selectedState,
+    level: selectedLevel,
+    gender: selectedGender
+}
+
+
+const handleSubmitSearch =async() =>{
+    try{
+setLoading(true)
+ const response = await gerFilterdata(filterData)
+    setSearchedData(response.data.data.students)
+    console.log(response.data.data.students,"response")
+    }catch(error){
+console.log(error)
+    }
+    setLoading(false)
+}
 
   useEffect(() => {
     fetchData(getAllAges, setAges);
@@ -26,6 +54,9 @@ const HomePage = () => {
     fetchData(getAllStates, setStates);
     fetchData(getAllLevels, setLevels);
   }, []);
+
+
+
   return (
     <PageWrapper>
         <div style={{width:"100%"}}><h1>Student Data Table</h1>
@@ -41,6 +72,8 @@ const HomePage = () => {
           id="age"
           select
           label="Age"
+          value={selectedAge}
+          onChange={(e) => setSelectedAge(e.target.value)}
          placeholder='select Age'
         >
           {ages?.map((option) => (
@@ -56,6 +89,8 @@ const HomePage = () => {
           id="state"
           select
           label="State"
+          value={selectedState}
+          onChange={(e) => setSelectedState(e.target.value)}
     
      
         >
@@ -74,6 +109,8 @@ const HomePage = () => {
           id="level"
           select
           label="Level"
+          value={selectedLevel}
+          onChange={(e) => setSelectedLevel(e.target.value)}
    
         >
           {levels.map((option) => (
@@ -90,6 +127,8 @@ const HomePage = () => {
           id="gender"
           select
           label="Gender"
+          value={selectedGender}
+          onChange={(e) => setSelectedGender(e.target.value)}
        
         >
           {gender?.map((option) => (
@@ -101,13 +140,13 @@ const HomePage = () => {
 
             </Grid>
             <Grid style={{ gridColumn: 'span 2' }} item xl={4} lg={4} md={12} sm={12} xs={12}>
- <Button style={{background:"#46C35F", width:"100%", textTransform: "capitalize"}} variant="contained">Search</Button>
+ <Button style={{background:"#46C35F", width:"100%", textTransform: "capitalize"}} onClick={handleSubmitSearch} variant="contained">{loading?"Loading...":"Search"}</Button>
         </Grid>
 
 
             </Grid>
         </FilterMainContainer> 
-   <StudentsTable/>
+   <StudentsTable searchedData={searchedData}/>
     </PageWrapper>
   )
 }
