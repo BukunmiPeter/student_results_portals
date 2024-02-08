@@ -15,7 +15,7 @@ console.log(resultPageElement, "fhfhfh")
         // html2canvas: { scale: 2 },
         // jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
          image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, width: resultPageElement.offsetWidth * 0.65, height: resultPageElement.offsetHeight * 1 },
+      html2canvas: { scale: 2, width: resultPageElement.offsetWidth * 1.2, height: resultPageElement.offsetHeight * 1 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
       };
     html2pdf().from(resultPageElement).set(pdfOptions).save();
