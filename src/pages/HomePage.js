@@ -140,7 +140,7 @@ console.log(error)
 
             </Grid>
             <Grid style={{ gridColumn: 'span 2' }} item xl={4} lg={4} md={12} sm={12} xs={12}>
- <Button style={{background:"#46C35F", width:"100%", textTransform: "capitalize"}} onClick={handleSubmitSearch} variant="contained">{loading?"Loading...":"Search"}</Button>
+ <Button style={{background:"#46C35F",padding:"10px 10px",  width:"100%", textTransform: "capitalize"}} onClick={handleSubmitSearch} variant="contained">{loading?"Loading...":"Search"}</Button>
         </Grid>
 
 
@@ -189,11 +189,12 @@ const  FilterMainContainer= styled(Box)(({ theme }) => ({
 
 
 const  PageWrapper= styled(Box)(({ theme }) => ({
-  height:"100vh",
+  // height:"100vh",
  display:"flex",
  justifyContent:"center",
  alignItems:"center",
- flexDirection:"column"
+ flexDirection:"column",
+ paddingBottom:"40px"
 }));
 
 const Text2= styled("p")(({ theme }) => ({

@@ -141,6 +141,7 @@ const MainTableContainer = styled(Box)(({ theme }) => ({
    display:"flex",
 // padding:"40px",
  height:"50vh",
+ 
 overflowY: 'scroll',
   scrollbarWidth: '10px',
   WebkitOverflowScrolling: 'touch',
@@ -173,7 +174,8 @@ const TableContainer = styled("table")(({ theme }) => ({
   alignItems:"center",
    
     height:"100px",
-    background:"#ffffff"
+    background:"#ffffff",
+    paddingBottom:"20px",
 }));
 
 const TableHead = styled("thead")(({ theme }) => ({
