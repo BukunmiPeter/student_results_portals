@@ -39,13 +39,14 @@ export default ResultModal
 
 const ModalContainer = styled(Box)(({ theme }) => ({
   position: 'absolute',
-  width: '80%',
+  // padding:"0 40px",
+  maxWidth: '80%',
   maxHeight:"80vh",
   overflowY:"scroll",
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   background: 'white',
-  padding: '20px',
+  padding: '20px 40px',
   textAlign: 'center',
 }));
