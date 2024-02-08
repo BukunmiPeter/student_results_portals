@@ -152,7 +152,15 @@ console.log(error)
 }
 
 export default HomePage
-
+export const customBreakpoints = {
+    xs: 0,
+    sm: 600,
+    md: 960,
+    lg: 1279,
+    xl: 1440,
+    xxl: 1899,
+    xxxl: 1900,
+};
 
 const  TextFieldWrapper= styled(TextField)(({ theme }) => ({
     width:"100%",
@@ -163,10 +171,21 @@ const  FilterMainContainer= styled(Box)(({ theme }) => ({
     width:"90%",
     background:"#ffffff",
     padding:"20px 0 20px 0px",
-    marginBottom:"50px"
+    marginBottom:"50px",
+      [`@media (max-width: ${customBreakpoints.lg}px)`]: {
+        alignItems:"center",
+        display:"flex",
+        flexDirection:"column"
+        
+    },
    
-
 }));
+
+// @media screen and (min-width: 601px) and (max-width: 6000px) {
+//     div.example {
+//         font-size: 5vw;
+//     }
+// }
 
 
 const  PageWrapper= styled(Box)(({ theme }) => ({

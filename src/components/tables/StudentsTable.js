@@ -106,7 +106,7 @@ const StudentsTable = ({searchedData}) => {
                 {item.state}
               </Tabledata>
                 <Tabledata>
-                  <Button style={{background:"#46C35F",  textTransform: "capitalize"}} onClick={()=>handleDownload(item)} variant="contained">Download Result</Button>
+                  <Button style={{background:"#46C35F", maxWidth:"50%", padding:"0 1rem",fontSize:"1vw ", textTransform: "capitalize"}} onClick={()=>handleDownload(item)} variant="contained">Download Result</Button>
              
               </Tabledata>
             </tr>
@@ -199,8 +199,8 @@ const TableH = styled("th")(({ theme }) => ({
 const Tabledata = styled("td")(({ theme }) => ({
     whiteSpace: 'nowrap',
     alignItems:"center",
-    padding: '16px', 
-    paddingLeft: '24px',
+    padding: '1rem', 
+    paddingLeft: '1.5rem',
 textAlign:"center",
     fontSize: '14px', 
      textTransform: "capitalize"
