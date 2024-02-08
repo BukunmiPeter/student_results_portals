@@ -162,7 +162,7 @@ height:"64px"
 const  FilterMainContainer= styled(Box)(({ theme }) => ({
     width:"90%",
     background:"#ffffff",
-    padding:"20px 0 0 0px",
+    padding:"20px 0 20px 0px",
     marginBottom:"50px"
    
 
