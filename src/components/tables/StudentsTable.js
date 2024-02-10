@@ -5,6 +5,8 @@ import html2pdf from 'html2pdf.js';
 import { getAllData } from '../../util/apis';
 import CircularIndeterminate from '../Loader';
 import ResultModal from '../ResultModal';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const columnHeads= [
   "S/N",
@@ -24,6 +26,8 @@ const StudentsTable = ({searchedData}) => {
     const [error, setError]= useState("")
     const [loading,setLoading]= useState(false)
     const [openModal, setOpenModal] = useState(false)
+      const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 
     const handleDownload =(result)=>{
@@ -106,7 +110,7 @@ const StudentsTable = ({searchedData}) => {
                 {item.state}
               </Tabledata>
                 <Tabledata>
-                  <Button style={{background:"#46C35F", maxWidth:"50%", padding:"10px",fontSize:"12px",lineHeight:"14.4px", wordWrap: "break-word", textTransform: "capitalize"}} onClick={()=>handleDownload(item)} variant="contained">Download Result</Button>
+                  <Button style={{background:"#46C35F", maxWidth:"50%", padding:"10px",fontSize:"12px",lineHeight:"14.4px", textTransform: "capitalize"}} onClick={()=>handleDownload(item)} variant="contained">{isSmallScreen?"Download":"Download Result"}</Button>
              
               </Tabledata>
             </tr>
