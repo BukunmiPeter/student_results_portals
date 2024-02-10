@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { Box, Button,CircularProgress,Grid,styled } from '@mui/material';
 import { gerFilterdata, getAllAges, getAllGender, getAllLevels, getAllStates } from '../util/apis';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 const fetchData = async (apiFunction, setterFunction) => {
@@ -25,6 +27,8 @@ const HomePage = () => {
   const [selectedGender, setSelectedGender] = useState('');
   const [searchedData, setSearchedData] = useState([])
 const [loading, setLoading]=useState(false)
+   const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 
 
@@ -65,7 +69,7 @@ console.log(error)
 
          <FilterMainContainer>
             <Text2>Filter Student Table by:  </Text2>
-  <Grid container spacing={2} justifyContent="space-between" width="60%" style={{ flexDirection: 'row', marginLeft:"20px" }}>
+  <Grid container spacing={2} justifyContent="space-between" width="60%" style={{ flexDirection: 'row', marginLeft:isSmallScreen?" ":"20px" }}>
 
             <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
    <TextFieldWrapper
