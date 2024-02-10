@@ -106,7 +106,7 @@ const StudentsTable = ({searchedData}) => {
                 {item.state}
               </Tabledata>
                 <Tabledata>
-                  <Button style={{background:"#46C35F", maxWidth:"50%", padding:"0 1rem",fontSize:"1vw ", textTransform: "capitalize"}} onClick={()=>handleDownload(item)} variant="contained">Download Result</Button>
+                  <Button style={{background:"#46C35F", maxWidth:"50%", padding:"10px",fontSize:"12px",lineHeight:"14.4px", textTransform: "capitalize"}} onClick={()=>handleDownload(item)} variant="contained">Download Result</Button>
              
               </Tabledata>
             </tr>
